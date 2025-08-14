@@ -29,8 +29,7 @@ if config_env() == :prod do
   config :mattbilbow_blog, MattbilbowBlog.Repo,
          url: database_url,
          pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
-         ssl: true,
-         ssl_opts: [
+         ssl: [
            verify: :verify_none,
            versions: [:"tlsv1.2", :"tlsv1.3"]
          ]
