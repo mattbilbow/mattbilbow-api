@@ -116,4 +116,11 @@ if config_env() == :prod do
   #     config :swoosh, :api_client, Swoosh.ApiClient.Req
   #
   # See https://hexdocs.pm/swoosh/Swoosh.html#module-installation for details.
+  config :mattbilbow_blog, MattbilbowBlogWeb.Endpoint,
+         url: [host: host, port: 443, scheme: "https"]
+
+  config :mattbilbow_blog, MattbilbowBlog.Repo,
+         ssl: true,
+         url: database_url,
+         pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10")
 end
