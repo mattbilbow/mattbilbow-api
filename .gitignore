@@ -27,3 +27,41 @@ erl_crash.dump
 
 # Ignore package tarball (built via "mix hex.build").
 mattbilbow_blog-*.tar
+
+# Phoenix secrets
+/config/*.secret.exs
+/config/dev.secret.exs
+.env
+.env.local
+
+# Additional Phoenix/Elixir items
+/priv/static/assets/
+/priv/static/cache_manifest.json
+
+# LiveView uploads
+/priv/uploads/
+
+# Dialyzer files
+/priv/plts/
+
+# Editor files
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Log files
+*.log
+
+# SSL certificates (if using phx.gen.cert)
+/priv/cert/
+
+# Node.js (if you add any JS build tools)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
