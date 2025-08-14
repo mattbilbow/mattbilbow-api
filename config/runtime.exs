@@ -7,24 +7,16 @@ end
 if config_env() == :prod do
   database_url =
     System.get_env("DATABASE_URL") ||
-      raise """
-      environment variable DATABASE_URL is missing.
-      For example: ecto://USER:PASS@HOST/DATABASE
-      """
-
-  maybe_ipv6 = if System.get_env("ECTO_IPV6") in ~w(true 1), do: [:inet6], else: []
+      raise "environment variable DATABASE_URL is missing"
 
   secret_key_base =
     System.get_env("SECRET_KEY_BASE") ||
-      raise """
-      environment variable SECRET_KEY_BASE is missing.
-      You can generate one by calling: mix phx.gen.secret
-      """
+      raise "environment variable SECRET_KEY_BASE is missing"
 
-  host = System.get_env("PHX_HOST") || "example.com"
+  host = System.get_env("PHX_HOST")
+  host = if host && host != "", do: host, else: "localhost"
+
   port = String.to_integer(System.get_env("PORT") || "4000")
-
-  config :mattbilbow_blog, :dns_cluster_query, System.get_env("DNS_CLUSTER_QUERY")
 
   config :mattbilbow_blog, MattbilbowBlogWeb.Endpoint,
          url: [host: host, port: 443, scheme: "https"],
@@ -35,8 +27,11 @@ if config_env() == :prod do
          secret_key_base: secret_key_base
 
   config :mattbilbow_blog, MattbilbowBlog.Repo,
-         ssl: true,
          url: database_url,
          pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
-         socket_options: maybe_ipv6
+         ssl: true,
+         ssl_opts: [
+           verify: :verify_none,
+           versions: [:"tlsv1.2", :"tlsv1.3"]
+         ]
 end
