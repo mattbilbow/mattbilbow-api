@@ -52,7 +52,7 @@ defmodule MattbilbowBlog.Accounts.User do
   Verifies the password.
   """
   def valid_password?(%MattbilbowBlog.Accounts.User{password_hash: hashed_password}, password)
-      when is_binary(hashed_password) and byte_size(password) > 0 do
+      when is_binary(hashed_password) and is_binary(password) and byte_size(password) > 0 do
     Bcrypt.verify_pass(password, hashed_password)
   end
 
