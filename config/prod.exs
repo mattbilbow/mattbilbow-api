@@ -1,4 +1,5 @@
-# config/prod.exs
+import Config
+
 config :mattbilbow_blog, MattbilbowBlogWeb.Endpoint,
        url: [port: 443, scheme: "https"],
        force_ssl: [rewrite_on: [:x_forwarded_proto]]
