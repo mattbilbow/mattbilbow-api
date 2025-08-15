@@ -50,7 +50,7 @@ defmodule MattbilbowBlogWeb.Endpoint do
   plug Plug.Session, @session_options
 
   # Cors
-  plug CORSPlug, origin: ["http://localhost:3000", "http://localhost:3001"]
+  plug CORSPlug
 
   plug MattbilbowBlogWeb.Router
 end
